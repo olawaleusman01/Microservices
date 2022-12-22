@@ -49,6 +49,7 @@ var app = builder.Build()
 
 // app.MapControllers();
 Console.WriteLine($"--> CommandService Endpoint {builder.Configuration["CommandServiceBaseUrl"]}");
+Console.WriteLine($"--> Connection string {builder.Configuration.GetConnectionString("PlatformCon")}");
 
 app.Run();
 
