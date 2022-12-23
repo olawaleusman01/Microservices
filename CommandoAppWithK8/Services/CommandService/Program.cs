@@ -18,8 +18,13 @@ if (builder.Environment.IsDevelopment())
 else
 {
     Console.WriteLine($"--> Using SQLServer Db");
+    var connString = builder.Configuration["ConnectionStrings:CommandCon"];
+
+
+    //Console.WriteLine($"-->ConnectionString={builder.Configuration["ConnectionStrings:CommandCon"]}");
+
     builder.Services.AddDbContext<AppDbContext>(opt =>
-                                                    opt.UseSqlServer(builder.Configuration.GetConnectionString("CommandCon")));
+                                    opt.UseSqlServer(connString));
 }
 
 
