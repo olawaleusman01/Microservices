@@ -15,6 +15,9 @@ spec:
       containers:
         - name: platformservice
           image: olawaleusman01/platformservice:latest
+          env:
+            - name: ConnectionStrings__PlatformCon
+              value: Server=mssql-clusterip-srv,1433;Initial Catalog=PlatformDb;User ID=sa;Password=Password1@;
 ---
 apiVersion: v1
 kind: Service

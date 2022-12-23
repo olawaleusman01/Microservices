@@ -16,8 +16,13 @@ if (builder.Environment.IsDevelopment())
 else
 {
     Console.WriteLine($"--> Using SQLServer Db");
+    var connString = builder.Configuration["ConnectionStrings:PlatformCon"];
+
+
+    //Console.WriteLine($"-->ConnectionString={builder.Configuration["ConnectionStrings:PlatformCon"]}");
+
     builder.Services.AddDbContext<AppDbContext>(opt =>
-                                                    opt.UseSqlServer(builder.Configuration.GetConnectionString("PlatformCon")));
+           opt.UseSqlServer(connString));
 }
 
 builder.Services.AddScoped<IPlatformRepo, PlatformRepo>();
@@ -49,7 +54,7 @@ var app = builder.Build()
 
 // app.MapControllers();
 Console.WriteLine($"--> CommandService Endpoint {builder.Configuration["CommandServiceBaseUrl"]}");
-Console.WriteLine($"--> Connection string {builder.Configuration.GetConnectionString("PlatformCon")}");
+// Console.WriteLine($"--> Connection string {builder.Configuration.GetConnectionString("PlatformCon")}");
 
 app.Run();
 

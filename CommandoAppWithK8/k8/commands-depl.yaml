@@ -4,17 +4,20 @@ metadata:
   name: commands-depl
 spec:
   replicas: 1
-  selector: 
+  selector:
     matchLabels:
       app: commandservice
   template:
-    metadata: 
+    metadata:
       labels:
         app: commandservice
     spec:
       containers:
         - name: commandservice
           image: olawaleusman01/commandservice:latest
+          env:
+            - name: ConnectionStrings__CommandCon
+              value: Server=mssql-clusterip-srv,1433;Initial Catalog=CommandDb;User ID=sa;Password=Password1@;
 ---
 apiVersion: v1
 kind: Service
@@ -22,9 +25,9 @@ metadata:
   name: commandnpservice-srv
 spec:
   type: NodePort
-  selector: 
+  selector:
     app: commandservice
-  ports: 
+  ports:
     - port: 80
       name: commandservice
       targetPort: 80
@@ -42,9 +45,3 @@ spec:
     - port: 80
       name: commandservice
       targetPort: 80
-
-
-
-
-
-
